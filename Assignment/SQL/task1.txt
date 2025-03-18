@@ -1,0 +1,63 @@
+create database CourierDatabase
+
+use CourierDatabase
+
+-- To store the courier details like sender and receiver information and other information
+CREATE TABLE CourierDetails(
+	COURIER_ID INT PRIMARY KEY,
+	SENDER_NAME VARCHAR(255),
+	SENDER_ADDRESS TEXT,
+	RECEIVER_NAME VARCHAR(255),
+	RECEIVER_ADDRESS TEXT,
+	WEIGHT DECIMAL(5,2),
+	STATUS VARCHAR(50),
+	TRACKING_NUMBER VARCHAR(20) UNIQUE,
+	DELIVERY_DATE DATE
+
+)
+
+-- To store information like name of the user and their personal information
+CREATE TABLE UserDetails(
+	USERID INT PRIMARY KEY,
+	NAME VARCHAR(255) NOT NULL,
+	EMAIL VARCHAR(255) UNIQUE,
+	PASSWORD VARCHAR(255),
+	CONTACT_NUMBER VARCHAR(20),
+	ADDRESS TEXT
+)
+
+-- To store information about the services
+CREATE TABLE CourierServices(
+	SERVICE_ID INT PRIMARY KEY,
+	SERVICE_NAME VARCHAR(100),
+	COST DECIMAL(8,2)
+)
+
+-- To store the employee data
+CREATE TABLE EmployeeDetails(
+	EMPLOYEE_ID INT PRIMARY KEY,
+	NAME VARCHAR(255),
+	EMAIL VARCHAR(255) UNIQUE,
+	CONTACT_NUMBER VARCHAR(20),
+	ROLE VARCHAR (50),
+	SALARY DECIMAL(10,2)
+)
+
+
+-- To store the location details
+CREATE TABLE LocationDetails(
+	LOCATION_ID INT PRIMARY KEY,
+	LOCATION_NAME VARCHAR(100),
+	ADDRESS TEXT
+)
+
+-- To store the payment details
+CREATE TABLE Payment_Details(
+	PAYMENT_ID INT PRIMARY KEY,
+	COURIER_ID INT,
+	LOCATION_ID INT,
+	AMOUNT DECIMAL(10,2),
+	PAYMENT_DATE DATE,
+	FOREIGN KEY(COURIER_ID) REFERENCES CourierDetails(COURIER_ID),
+	FOREIGN KEY(LOCATION_ID) REFERENCES LocationDetails(LOCATION_ID)
+)
